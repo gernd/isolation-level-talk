@@ -24,11 +24,52 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+                <section>
+                    <p>Isolation Levels</p>
+                    <p>Gernot Pointner</p>
+                    <p>Java Community of Practice</p>
+                </section>
+                <section>
+                    <h2>ACID</h2>
+                    <ul>
+                        <li>concept of database transactions</li>
+                        <li>Atomicity</li>
+                        <li>Consistency</li>
+                        <li>Isolation</li>
+                        <li>Durability</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Isolation</h2>
+                    <ul>
+                        <li>several levels of isolation</li>
+                        <li>characterized by bad things that are guaranteed not to happen</li>
+                        <li>tradeof between data integrity and performance</li>
+                    </ul>
+                </section>
+                <section>
+                    <h1>Things that can go wrong - DB failure phenomena</h1>
+                </section>
+                <section>
+                    <h2>Dirty Read</h2>
+                </section>
+                <section>
+                    <h2>Non-repeatable Read</h2>
+                </section>
+                <section>
+                    <h2>Phantom Read</h2>
+                </section>
+                <section>
+                    TODO show the transaction levels and which phenomena can occur
+                    TODO how are these transaction levels implemented
+                </section>
+                <section>
+                    TODO: how does lockin interfere?
+                    TODO: optimistic vs. pessimistic locking?
+                    TODO: specialties of postgresql?
+                </section>
 			</div>
-		</div>
-
+        </div>
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
 
