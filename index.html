@@ -42,26 +42,140 @@
                 <section>
                     <h2>Isolation</h2>
                     <ul>
-                        <li>several levels of isolation</li>
+                        <li>several isolation level exist</li>
+                        <li>determine what transactions can see from other concurrent transactions</li>
                         <li>characterized by bad things that are guaranteed not to happen</li>
                         <li>tradeof between data integrity and performance</li>
                     </ul>
                 </section>
                 <section>
-                    <h1>Things that can go wrong - DB failure phenomena</h1>
+                    <h3>Things that can go wrong - DB failure phenomena</h3>
                 </section>
                 <section>
-                    <h2>Dirty Read</h2>
+                    <h3>Dirty Read</h3>
+                    One transaction reads uncommitted data from another transaction
                 </section>
                 <section>
-                    <h2>Non-repeatable Read</h2>
+                    <h3>Dirty Read</h3>
+                    <ul>
+                        <li>First transaction</li>
+                        <li>Inserts user into user table</li>
+                        <li>Inserts entry in user_group table so that user is in Admin group</li>
+                    </ul>
                 </section>
                 <section>
-                    <h2>Phantom Read</h2>
+                    <h3>Dirty Read</h3>
+                    <ul>
+                        <li>Second transaction</li>
+                        <li>Gets all users and their associated groups</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Dirty Read</h3>
+                    <ul>
+                        <li>T1: insert user</li>
+                        <li>T2: get all users with groups</li>
+                        <li>T1: insert entry in user_groups table</li>
+                        <li>effect: user is in no group</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Non-repeatable Read</h3>
+                    A row is retrieved twice within a transaction and the values of the row differ between reads
+                </section>
+                <section>
+                    <h3>Non-repeatable Read</h3>
+                    <ul>
+                        <li>First transaction: Selects users with their last login date</li>
+                        <li>Second transaction: Updates login date for for one user</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Non-repeatable Read</h3>
+                    <ul>
+                        <li>T1: Select users</li>
+                        <li>T2: Update login date for one user</li>
+                        <li>T1: Select users</li>
+                        <li>effect: login date from second select differs for one user</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Phantom Read</h3>
+                        Result of query changes during transaction because of updated/deleted rows
+                </section>
+                <section>
+                    <h3>Phantom Read</h3>
+                    <ul>
+                        <li>First transaction</li>
+                        <li>Get sum of all prices of an shopping_item table  </li>
+                        <li>Get number of all items in shopping_item table</li>
+                        <li>Application code: Calculate average price (sum of all prices / number of items contained in shopping_item table)</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Phantom Read</h3>
+                    <ul>
+                        <li>Second transaction</li>
+                        <li>Delete item from shopping_item_table</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Phantom Read</h3>
+                    <ul>
+                        <li>T1: Get sum of all prices of an shopping_item table  </li>
+                        <li>T2: Delete item from shopping_item_table</li>
+                        <li>T1: Get number of all items in shopping_item table</li>
+                        <li>T1: Application code: Calculate average price (sum of all prices / number of items contained in shopping_item table)</li>
+                        <li>effect: calculated average price is wrong</li>
+                    </ul>
+                </section>
+                <section>
+                    TODO: Phantom vs. non repeatable read
+                </section>
+                <section>
+                    <table>
+                        <tr>
+                            <th>Isolation Level</th>
+                            <th>Dirty Read</th>
+                            <th>Non-repeatable Read</th>
+                            <th>Phantom Read</th>
+                        </tr>
+                        <tr>
+                            <td>Read uncommitted</td>
+                            <td>Possible</td>
+                            <td>Possible</td>
+                            <td>Possible</td>
+                        </tr>
+                        <tr>
+                            <td>Read committed</td>
+                            <td>Not Possible</td>
+                            <td>Possible</td>
+                            <td>Possible</td>
+                        </tr>
+                        <tr>
+                            <td>Repeatable Read</td>
+                            <td>Not Possible</td>
+                            <td>Not Possible</td>
+                            <td>Possible</td>
+                        </tr>
+                        <tr>
+                            <td>Serializable</td>
+                            <td>Not Possible</td>
+                            <td>Not Possible</td>
+                            <td>Not Possible</td>
+                        </tr>
+                    </table>
                 </section>
                 <section>
                     TODO show the transaction levels and which phenomena can occur
                     TODO how are these transaction levels implemented
+                </section>
+                <section>
+                    <h4>Isolation level implementation</h4>
+                    <ul>
+                        <li>lock based</li>
+                        <li>multiversion concurrency control</li>
+                    </ul>
                 </section>
                 <section>
                     TODO: how does lockin interfere?
