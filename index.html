@@ -46,6 +46,7 @@
                         <li>determine what transactions can see from other concurrent transactions</li>
                         <li>characterized by bad things that are guaranteed not to happen</li>
                         <li>tradeof between data integrity and performance</li>
+                        <li>defined by SQL standard</li>
                     </ul>
                 </section>
                 <section>
@@ -175,12 +176,34 @@
                     <ul>
                         <li>lock based</li>
                         <li>multiversion concurrency control</li>
+                        <li>combination</li>
                     </ul>
                 </section>
                 <section>
+                    <h4>MVCC</h4>
+                    <ul>
+                        <li>provide efficient multiuser concurrent access for DB systems</li>
+                        <li>transactions should not have to wait for DB objects</li>
+                        <li>different versions of the same DB object are managed (snapshots)</li>
+                        <li>Read access is never blocked</li>
+                        <li>TODO: explain Reading timestamp/writing timestamp</li>
+                        <li>cons: costs for managing several versions</li>
+                    </ul>
+                </section>
+                <section>
+                    TODO: explain concept of multiversion concurrency control (with postgres as example)
                     TODO: how does lockin interfere?
                     TODO: optimistic vs. pessimistic locking?
                     TODO: specialties of postgresql?
+                </section>
+                <section>
+                    <h3>Thank you!</h3>
+                </section>
+                <section>
+                    <h3>Sources</h3>
+                    <ul>
+                        <li>https://de.wikipedia.org/wiki/Multiversion_Concurrency_Control</li>
+                    </ul>
                 </section>
 			</div>
         </div>
