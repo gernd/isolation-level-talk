@@ -49,6 +49,7 @@
                         <li>characterized by bad things that are guaranteed not to happen</li>
                         <li>tradeof between data integrity and performance</li>
                         <li>defined by SQL standard</li>
+                        <li>TODO Cursor Stabiliy</li>
                     </ul>
                 </section>
                 <section>
@@ -184,6 +185,7 @@
                         <li>each transaction sees a snapshot of the data (database version)</li>
                         <li>no read locks required (as each transaction has its own version for reading)</li>
                         <li>more costs for managing several DB versions for each transaction</li>
+                        <li>transaction have to wait when comitting for other transactions to finish(to update their snapshot)</li>
                     </ul>
                 </section>
                 <section>
@@ -199,10 +201,11 @@
                 <section>
                     <h3>Optimistic Concurrency Control</h3>
                     <ul>
-                        <li>version information is saved for each row</li>
+                        <li>version information is saved for each row(version count, hash, timestamp...)</li>
                         <li>transaction remembers version number for each row it reads or updates</li>
                         <li>when committing, it checks whether the affected rows have been changes by another transaction</li>
                         <li>handling of potential conflict needed (e.g. rollback/retry)</li>
+                        <li>Pro: well suited for usecase where lot of reads are needed BUT overhead if transaction has to be rolled back several times</li>
                         TODO example for isolation level x 
                     </ul>
                 </section>
