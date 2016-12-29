@@ -42,6 +42,8 @@
                 <section>
                     <h2>Isolation</h2>
                     <ul>
+                        <li>concurrent transactions should be logically serialized</li>
+                        <li>DBMS is responsible for preventing failures caused by concurrent transactions</li>
                         <li>several isolation level exist</li>
                         <li>determine what transactions can see from other concurrent transactions</li>
                         <li>characterized by bad things that are guaranteed not to happen</li>
@@ -51,6 +53,7 @@
                 </section>
                 <section>
                     <h3>Things that can go wrong - DB failure phenomena</h3>
+                    TODO: Lost Updates
                 </section>
                 <section>
                     <h3>Dirty Read</h3>
@@ -168,33 +171,60 @@
                     </table>
                 </section>
                 <section>
-                    TODO show the transaction levels and which phenomena can occur
-                    TODO how are these transaction levels implemented
+                    <h2>Isoliation level implementation</h2>
                 </section>
                 <section>
-                    <h4>Isolation level implementation</h4>
+                    <h2>MVCC</h2>
+                </section>
+                <section>
+                    <h4>MVCC</h4>
                     <ul>
-                        <li>lock based</li>
                         <li>multiversion concurrency control</li>
-                        <li>combination</li>
+                        <li>provide efficient multiuser concurrent access for DB systems</li>
+                        <li>each transaction sees a snapshot of the data (database version)</li>
+                        <li>no read locks required (as each transaction has its own version for reading)</li>
+                        <li>more costs for managing several DB versions for each transaction</li>
                     </ul>
                 </section>
                 <section>
                     <h4>MVCC</h4>
                     <ul>
-                        <li>provide efficient multiuser concurrent access for DB systems</li>
-                        <li>transactions should not have to wait for DB objects</li>
-                        <li>different versions of the same DB object are managed (snapshots)</li>
-                        <li>Read access is never blocked</li>
-                        <li>TODO: explain Reading timestamp/writing timestamp</li>
-                        <li>cons: costs for managing several versions</li>
+                        <li>TODO: read/write timestamps here?</li>
                     </ul>
                 </section>
                 <section>
-                    TODO: explain concept of multiversion concurrency control (with postgres as example)
-                    TODO: how does lockin interfere?
-                    TODO: optimistic vs. pessimistic locking?
-                    TODO: specialties of postgresql?
+                    TODO: mention postgres as example
+                    example for one isolation level in Postgres?
+                </section>
+                <section>
+                    <h3>Optimistic Concurrency Control</h3>
+                    <ul>
+                        <li>version information is saved for each row</li>
+                        <li>transaction remembers version number for each row it reads or updates</li>
+                        <li>when committing, it checks whether the affected rows have been changes by another transaction</li>
+                        <li>handling of potential conflict needed (e.g. rollback/retry)</li>
+                        TODO example for isolation level x 
+                    </ul>
+                </section>
+                <section>
+                    <h3>Pessimistic Concurrency Control</h3>
+                    <ul>
+                        <li>DB item (e.g. row) is exclusively locked by one transaction</li>
+                        <li>Granularity: Rows, Tables, Pages</li>
+                        <li>Read/write locks</li>
+                        <li>deadlocks possible, increases waiting time for other transactions</li>
+                        <li>Once a transaction has modified/read a DB item, lock is kept until transaction has committed</li>
+                        TODO example for isolation level x 
+                    </ul>
+                </section>
+                <section>
+                    <h3>Pessimistic Concurrency Control - Deadlock Handling</h3>
+                    <ul>
+                        <li>Approach by InnoDB engine (used by Mysql)</li>
+                        <li>Deadlock can be detected or transaction timeout occurs</li>
+                        <li>One of the transactions ("victim") is rolled back</li>
+                        TODO example for isolation level x 
+                    </ul>
                 </section>
                 <section>
                     <h3>Thank you!</h3>
@@ -203,6 +233,9 @@
                     <h3>Sources</h3>
                     <ul>
                         <li>https://de.wikipedia.org/wiki/Multiversion_Concurrency_Control</li>
+                        <li>https://technet.microsoft.com/en-us/library/ms187101(v=sql.105).aspx</li>
+                        <li>https://www.postgresql.org/docs/8.0/static/mvcc.html</li>
+                        <li>http://dev.mysql.com/doc/refman/5.7/en/innodb-deadlocks.html</li>
                     </ul>
                 </section>
 			</div>
