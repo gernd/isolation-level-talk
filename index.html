@@ -44,11 +44,7 @@
                     <ul>
                         <li>concurrent transactions should be logically serialized</li>
                         <li>DBMS is responsible for preventing failures caused by concurrent transactions</li>
-                        <li>several isolation level exist</li>
-                        <li>determine what transactions can see from other concurrent transactions</li>
-                        <li>characterized by bad things that are guaranteed not to happen</li>
-                        <li>tradeof between data integrity and performance</li>
-                        <li>defined by SQL standard</li>
+                        <li>several errors possible if concurrent transactions would not be synchronized</li>
                         <li>TODO Cursor Stabiliy</li>
                     </ul>
                 </section>
@@ -61,81 +57,101 @@
                     One transaction reads uncommitted data from another transaction
                 </section>
                 <section>
-                    <h3>Dirty Read</h3>
-                    <ul>
-                        <li>First transaction</li>
-                        <li>Inserts user into user table</li>
-                        <li>Inserts entry in user_group table so that user is in Admin group</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Dirty Read</h3>
-                    <ul>
-                        <li>Second transaction</li>
-                        <li>Gets all users and their associated groups</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Dirty Read</h3>
-                    <ul>
-                        <li>T1: insert user</li>
-                        <li>T2: get all users with groups</li>
-                        <li>T1: insert entry in user_groups table</li>
-                        <li>effect: user is in no group</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Non-repeatable Read</h3>
-                    A row is retrieved twice within a transaction and the values of the row differ between reads
-                </section>
-                <section>
-                    <h3>Non-repeatable Read</h3>
-                    <ul>
-                        <li>First transaction: Selects users with their last login date</li>
-                        <li>Second transaction: Updates login date for for one user</li>
-                    </ul>
+                    <table>
+                        <tr>
+                            <td>T1</td>
+                            <td>
+                                Inserts user into user table
+                            </td>
+                            <td></td>
+                            <td>
+                                Inserts entry in user_group table so that user is in Admin group
+                            </td>
+                            <td>Commit</td>
+                        </tr>
+                        <tr>
+                            <td>T2</td>
+                            <td>
+                            </td>
+                            <td>
+                                Gets all users and their associated groups
+                            </td>
+                            <td></td>
+                            <td>Commit</td>
+                        </tr>
+                    </table>
+                    effect: user is in no group
                 </section>
                 <section>
                     <h3>Non-repeatable Read</h3>
-                    <ul>
-                        <li>T1: Select users</li>
-                        <li>T2: Update login date for one user</li>
-                        <li>T1: Select users</li>
-                        <li>effect: login date from second select differs for one user</li>
-                    </ul>
+                    A specific entry is retrieved twice within a transaction and the values of the row differ between reads (because it has been <b>updated</b> by another transaction)
+                </section>
+                <section>
+                    <table>
+                        <tr>
+                            <td>T1</td>
+                            <td>
+                                Select users
+                            </td>
+                            <td></td>
+                            <td>
+                                
+                            </td>
+                            <td>Select users</td>
+                        </tr>
+                        <tr>
+                            <td>T2</td>
+                            <td>
+                            </td>
+                            <td>
+                                Update login date for one user
+                            </td>
+                            <td>Commit</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    effect: login date from second select differs for one user
                 </section>
                 <section>
                     <h3>Phantom Read</h3>
-                        Result of query changes during transaction because of updated/deleted rows
+                    Result of query changes during transaction because entries have been <b>created</b> or <b>deleted</b> by another transaction
                 </section>
                 <section>
-                    <h3>Phantom Read</h3>
-                    <ul>
-                        <li>First transaction</li>
-                        <li>Get sum of all prices of an shopping_item table  </li>
-                        <li>Get number of all items in shopping_item table</li>
-                        <li>Application code: Calculate average price (sum of all prices / number of items contained in shopping_item table)</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Phantom Read</h3>
-                    <ul>
-                        <li>Second transaction</li>
-                        <li>Delete item from shopping_item_table</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Phantom Read</h3>
-                    <ul>
-                        <li>T1: Get sum of all prices of an shopping_item table  </li>
-                        <li>T2: Delete item from shopping_item_table</li>
-                        <li>T1: Get number of all items in shopping_item table</li>
-                        <li>T1: Application code: Calculate average price (sum of all prices / number of items contained in shopping_item table)</li>
-                        <li>effect: calculated average price is wrong</li>
-                    </ul>
+                    <table>
+                        <tr>
+                            <td>T1</td>
+                            <td>
+                                Get sum of all prices of an shopping_item table
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td>Get number of all items in shopping_item table</td>
+                        </tr>
+                        <tr>
+                            <td>T2</td>
+                            <td>
+                            </td>
+                            <td>
+                                Delete item from shopping_item_table
+                            </td>
+                            <td>Commit</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    effect: error when calculating average price
                 </section>
                 <section>
                     TODO: Phantom vs. non repeatable read
+                </section>
+                <section>
+                    <h2>Isolation Level</h2>
+                    <ul>
+                        <li>determine what transactions can see from other concurrent transactions</li>
+                        <li>characterized by bad things that are guaranteed not to happen</li>
+                        <li>tradeof between data integrity and performance</li>
+                        <li>defined by SQL standard</li>
+                        <li>application has to decide, which level fits their needs</li>
+                    </ul>
                 </section>
                 <section>
                     <table>
