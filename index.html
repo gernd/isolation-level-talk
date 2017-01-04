@@ -81,7 +81,7 @@
                             <td>Commit</td>
                         </tr>
                     </table>
-                    effect: user is in no group
+                    effect: update "+10" has been lost
                 </section>
                 <section>
                     <h3>Dirty Read</h3>
@@ -172,16 +172,13 @@
                     effect: error when calculating average price
                 </section>
                 <section>
-                    TODO: Phantom vs. non repeatable read
-                </section>
-                <section>
                     <h2>Isolation Level</h2>
                     <ul>
                         <li>determine what transactions can see from other concurrent transactions</li>
                         <li>characterized by bad things that are guaranteed not to happen</li>
                         <li>tradeof between data integrity and performance</li>
                         <li>defined by SQL standard</li>
-                        <li>application has to decide, which level fits their needs</li>
+                        <li>application has to decide, which level fits its needs</li>
                     </ul>
                 </section>
                 <section>
