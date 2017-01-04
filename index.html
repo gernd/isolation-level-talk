@@ -230,13 +230,22 @@
                 <section>
                     <h3>Optimistic Concurrency Control</h3>
                     <ul>
-                        <li>version information is saved for each row(version count, hash, timestamp...)</li>
+                        <li>version information is saved for each DB item(version count, hash, timestamp...)</li>
                         <li>transaction remembers version number for each row it reads or updates</li>
-                        <li>when committing, it checks whether the affected rows have been changes by another transaction</li>
-                        <li>handling of potential conflict needed (e.g. rollback/retry)</li>
-                        <li>Pro: well suited for usecase where lot of reads are needed BUT overhead if transaction has to be rolled back several times</li>
-                        TODO example for isolation level x 
+                        <li>when committing, it checks whether the timestamp of the affected rows have been changed by another transaction</li>
                     </ul>
+                </section>
+                <section>
+                    <h3>Optimistic Concurrency Control</h3>
+                    <ul>
+                        <li>Pro: no locking needed</li>
+                        <li>Cons: handling of potential conflict needed (e.g. rollback/retry)</li>
+                        <li>appropriate for usecases where most of the transactions only read</li>
+                        <li>problem: lots of conflicts when several transactions write</li>
+                    </ul>
+                </section>
+                <section>
+                    TODO example optimistic concurrency
                 </section>
                 <section>
                     <h3>Pessimistic Concurrency Control</h3>
