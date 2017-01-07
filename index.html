@@ -250,12 +250,17 @@
                 <section>
                     <h3>Pessimistic Concurrency Control</h3>
                     <ul>
-                        <li>DB item (e.g. row) is exclusively locked by one transaction</li>
+                        <li>DB item is locked by transaction when it is accessed</li>
                         <li>Granularity: Rows, Tables, Pages</li>
-                        <li>Read/write locks</li>
-                        <li>deadlocks possible, increases waiting time for other transactions</li>
-                        <li>Once a transaction has modified/read a DB item, lock is kept until transaction has committed</li>
-                        TODO example for isolation level x 
+                        <li>Read locks: Can be obtained by several transactions</li>
+                        <li>Write locks: Obtained by one transaction exclusively</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Pessimistic Concurrency Control</h3>
+                    <ul>
+                        <li>Pro: Less rollbacks and conflict handling needed</li>
+                        <li>Cons: deadlocks possible, increased waiting time for other transactions until locks are free</li>
                     </ul>
                 </section>
                 <section>
@@ -264,33 +269,28 @@
                         <li>Approach by InnoDB engine (used by Mysql)</li>
                         <li>Deadlock can be detected or transaction timeout occurs</li>
                         <li>One of the transactions ("victim") is rolled back</li>
-                        TODO example for isolation level x 
                     </ul>
                 </section>
                 <section>
                     <h4>MVCC</h4>
                     <ul>
                         <li>multiversion concurrency control</li>
-                        <li>provide efficient multiuser concurrent access for DB systems</li>
-                        <li>each transaction sees a snapshot of the data (database version)</li>
-                        <li>no read locks required (as each transaction has its own version for reading)</li>
-                        <li>more costs for managing several DB versions for each transaction</li>
-                        <li>transaction have to wait when comitting for other transactions to finish(to update their snapshot)</li>
+                        <li>DBMS holds several versions for each DB item</li>
+                        <li>Reading: there is always a consistent state available</li>
+                        <li>Writing: conflict possible(several transactions have upated same values) or transaction has to wait
                     </ul>
                 </section>
                 <section>
                     <h4>MVCC</h4>
                     <ul>
-                        <li>TODO: read/write timestamps here?</li>
-                        <li>TODO: have a look at https://homepages.thm.de/~hg11260/mat/IsoLevel.pdf</li>
+                        <li>Pro: reading transactions never lock, read most recent consistent DB version</li>
+                        <li>Cons: more space needed for managing several DB versions</li>
+                        <li>Cons: Garbage Collection needed for outdated DB versions</li>
                     </ul>
                 </section>
                 <section>
                     TODO: mention postgres as example
                     example for one isolation level in Postgres?
-                </section>
-                <section>
-                    One example for one isolation level implemented by one mechanism (see https://en.wikipedia.org/wiki/Isolation_(database_systems))
                 </section>
                 <section>
                     <h3>Thank you!</h3>
@@ -303,6 +303,8 @@
                         <li>https://www.postgresql.org/docs/8.0/static/mvcc.html</li>
                         <li>http://dev.mysql.com/doc/refman/5.7/en/innodb-deadlocks.html</li>
                         <li>https://en.wikipedia.org/wiki/Isolation_(database_systems)</li>
+                        <li>https://homepages.thm.de/~hg11260/mat/IsoLevel.pdf</li>
+                        <li>http://wikis.gm.fh-koeln.de/wiki_db/Datenbanken/MVCC</li>
                     </ul>
                 </section>
 			</div>
