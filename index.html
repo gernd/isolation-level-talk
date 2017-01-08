@@ -145,7 +145,7 @@
                 </section>
                 <section>
                     <h3>Phantom Read</h3>
-                    Result of query changes during transaction because entries have been <b>created</b> or <b>deleted</b> by another transaction
+                    Result of aggregate query changes during transaction because entries have been <b>created</b> or <b>deleted</b> by another transaction
                 </section>
                 <section>
                     <table>
@@ -225,7 +225,7 @@
                     <img src="img/overview.png"></img>
                 </section>
                 <section>
-                    <h2>Isoliation level implementation</h2>
+                    <h2>Concurrency Control</h2>
                 </section>
                 <section>
                     <h3>Optimistic Concurrency Control</h3>
@@ -286,6 +286,7 @@
                         <li>Pro: reading transactions never lock, read most recent consistent DB version</li>
                         <li>Cons: more space needed for managing several DB versions</li>
                         <li>Cons: Garbage Collection needed for outdated DB versions</li>
+                        <li>Used by e.g. postgresql</li>
                     </ul>
                 </section>
                 <section>
