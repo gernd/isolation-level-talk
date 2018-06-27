@@ -8,7 +8,7 @@ Talk about DB Isolation Levels given for [jambit](https://www.jambit.com)
 
 Download the repo and open index.html
 
-### Full setup
+## Full setup
 
 Some reveal.js features, like external Markdown and speaker notes, require that presentations run from a local web server. The following instructions will set up such a server as well as all of the development tasks needed to make edits to the reveal.js source code.
 
@@ -32,7 +32,7 @@ Some reveal.js features, like external Markdown and speaker notes, require that 
 
    You can change the port by using `grunt serve --port 8001`.
 
-## Used Libs/Frameworks 
+# Used Libs/Frameworks 
 This talk is built using the awesome [reveal.js](https://github.com/hakimel/reveal.js) framework by [Hakim El Hattab](https://hakim.se/).
 Reveal.js is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 Copyright (C) 2016 Hakim El Hattab, http://hakim.se
